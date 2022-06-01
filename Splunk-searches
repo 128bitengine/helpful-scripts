@@ -1,1 +1,22 @@
 
+** Find unique host **
+index=index host=*host variable* |stats values(host)
+
+** Find the raw byte volume of logs by host
+| eval l=length(_raw) | stats sum(l) by host
+
+** List all indexes in splunk
+** DO NOT PUT ANYTYHING IN FRONT OF THE FOLLOWING SEARCH
+|tstats count by index|fields - count
+
+** Get total count of number of logs in an index
+|metadata index=* type=sources | stats sum(totalCount)
+
+** List average log bytes by log type **
+index=<index> host=<anything you want>  sourcetype=<log you want> | eval log_bytes=len(_raw)  | stats  avg(log_bytes) by sourcetype
+
+** List the number of entries by a field
+index=<index> |stats count by <field>
+
+
+
